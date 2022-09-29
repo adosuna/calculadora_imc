@@ -11,32 +11,52 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+    //Variables de clase, tambien conocidas como campos
+    private TextView textoResultado;
+    private Button botonCalcular;
+    private RadioButton botonHombre;
+    private RadioButton botonMujer;
+    private EditText edadEditarTexto;
+    private EditText centimetrosEditarTexto;
+    private EditText pesoEditarTexto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main); //R = resource o recurso
+        buscarVistas();
 
-       TextView textoResultado = findViewById(R.id.vista_texto_resultado);
+        configurarBotonClicListener();
+    }
 
-       RadioButton botonHombre = findViewById(R.id.boton_radio_hombre);
-       RadioButton botonMujer = findViewById(R.id.boton_radio_mujer);
+    private void buscarVistas(){
+        textoResultado = findViewById(R.id.vista_texto_resultado);
 
-       EditText edadEditarTexto = findViewById(R.id.editar_texto_edad);
-       EditText centimetrosEditarTexto = findViewById(R.id.editar_texto_centimetros);
-       EditText pesoEditarTexto = findViewById(R.id.editar_texto_peso);
+        botonHombre = findViewById(R.id.boton_radio_hombre);
+        botonMujer = findViewById(R.id.boton_radio_mujer);
 
-       Button botonCalcular = findViewById(R.id.boton_calcular);
+        edadEditarTexto = findViewById(R.id.editar_texto_edad);
+        centimetrosEditarTexto = findViewById(R.id.editar_texto_centimetros);
+        pesoEditarTexto = findViewById(R.id.editar_texto_peso);
 
-       botonCalcular.setOnClickListener(new View.OnClickListener(){
-           @Override
-           public void onClick(View v){
-               Toast.makeText(MainActivity.this, "Orale, ya reacciona a botonazos",
-                       Toast.LENGTH_LONG).show();
-           }
-       });
+        botonCalcular = findViewById(R.id.boton_calcular);
+    }
 
+    private void configurarBotonClicListener() {
+        botonCalcular.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                calcularBmi();
+            }
+        });
+    }
 
-       textoResultado.setText("Orale, ya puedo actualizar mi textview - soy la mera onda");
+    private void calcularBmi() {
+        String edadTexto = edadEditarTexto.getText().toString();
+        String centimetrosTexto = centimetrosEditarTexto.getText().toString();
+        String pesoTexto = pesoEditarTexto.getText().toString();
+
+        textoResultado.setText("Edad: " + edadTexto + ", Centimetros: " + centimetrosTexto
+            + ", Peso: " + pesoTexto);
     }
 }
