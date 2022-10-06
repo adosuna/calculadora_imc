@@ -46,17 +46,28 @@ public class MainActivity extends AppCompatActivity {
         botonCalcular.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                calcularBmi();
+                calcularImc();
             }
         });
     }
 
-    private void calcularBmi() {
+    private void calcularImc() {
         String edadTexto = edadEditarTexto.getText().toString();
         String centimetrosTexto = centimetrosEditarTexto.getText().toString();
         String pesoTexto = pesoEditarTexto.getText().toString();
 
-        textoResultado.setText("Edad: " + edadTexto + ", Centimetros: " + centimetrosTexto
-            + ", Peso: " + pesoTexto);
+        // Convirtiendo numeros en String a int
+        int edad = Integer.parseInt(edadTexto);
+        double altura = Double.parseDouble(centimetrosTexto);
+        int peso = Integer.parseInt(pesoTexto);
+
+        //Altura en metros
+        double alturaMetros = (altura / 100);
+
+        double imc = peso / (alturaMetros*alturaMetros);
+
+        String imcResultadoTexto = String.valueOf(imc);
+
+        textoResultado.setText(imcResultadoTexto);
     }
 }
